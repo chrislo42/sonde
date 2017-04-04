@@ -4,12 +4,13 @@ body, html{
 
 body{
     padding-top: 70px;
+    /*background-color: #A8C5E5*/
 }
-/*
-.reglages{
-    display: none;
+
+.space{
+   height: 70px;
 }
-*/
+
 footer{
     background:#525252;
     position:absolute;
@@ -48,4 +49,14 @@ img{
 }
 .spe{
     width: 100%;
+}
+
+#legend{
+    float: right;
+    position: relative;
+    top:130px;
+}
+
+.affich{
+    margin-bottom: 150px;
 }

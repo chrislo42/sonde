@@ -5,12 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sonde DHT11</title>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="sonde.css">
     <script src = "https://code.jquery.com/jquery-1.11.2.min.js"> </script>
-    <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"> </script>
+    <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"> </script>
     <script src="lib/dygraph-combined.js"></script>
+    <script src="lib/sonde.js"></script>
 </head>
 <body>
     <div id="main-body">
@@ -31,21 +32,23 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="mon_menu">
                     <ul class="nav navbar-nav">
-                        <li><a href="#accueil">Accueil</a></li>
-                        <li><a href="#reglages">Réglages</a></li>
-                        <li><a href="#tableau">Tableau</a></li>
-                        <li><a href="#graphe">Graphique</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a id="acc" href="#accueil">Accueil</a></li>
+                        <li><a id="reg" href="#reglages">Réglages</a></li>
+                        <li><a id="tab" href="#tableau">Tableau</a></li>
+                        <li><a id="gra" href="#graphe">Graphique</a></li>
+                        <li><a id="con" href="#accueil">Contact</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
         <div class="container">
-            <div class="row" id="accueil">
+            <div class="space" id="accueil"></div>
+            <div class="row">
                 <div class="col-md-12 affich">
                 </div>
             </div>
-            <div class="row" id="reglages">
+            <div class="space" id="reglages"></div>
+            <div class="row">
                 <div class="col-md-12">
 
                         <div class="radio">
@@ -103,10 +106,12 @@
 
                 </div>
             </div>
-            <div class="row" id="tableau">
+            <div class="space" id="tableau"></div>
+            <div class="row">
                 <div class="col-md-12 donnees"></div>
             </div>
-            <div class="row" id="graphe">
+            <div class="space" id="graphe"></div>
+            <div class="row">
                 <div id="dygraph" class="col-xs-11"></div>
             </div>
         </div>
@@ -114,107 +119,5 @@
             <p>© 2017 - Design Tech Académie</p>
         </footer>
     </div>
-    <script type="text/javascript">
-    $(document).ready(function(){
-        $.ajax({
-            method:"GET",
-            url:"http://localhost/sonde/api/meas/day/last",
-            dataType: "json"
-        }).done(function(data){
-            $('.affich').append("<p>Dernière Température reçue :</p>");
-            var affich = "<p>Date : "+data['date']+"</p><p>Température : </p><p class='lcd'>"+data['temp']+" °C</p>"
-            affich += "<p>Humidité : </p><p class='lcd'>"+data['humid']+" %</p>";
-            $('.affich').append(affich);
-        });
-        //$("#reglages").click(function(event){
-        //    event.preventDefault();
-        //    linkLocation = this.href;
-        //    $(".reglages").css('display', 'block');
-        //    $(".accueil").css('display', 'none');
-        //});
-        $("#envoi").click(function(){
-            var choix = $('input[type=radio][name=choix]:checked').attr('value');
-            var url ="";
-            switch (choix) {
-                case "date_co":
-                    url = "http://localhost/sonde/api/meas/day/current";
-                    break;
-                case "date_pa":
-                    var date = $('#val_dat_pa').val();
-                    url = "http://localhost/sonde/api/meas/day/" + date;
-                    break;
-                case "date_in":
-                    var date1 = $('#val_dat_in1').val();
-                    var date2 = $('#val_dat_in2').val();
-                    url = "http://localhost/sonde/api/meas/days/" + date1 + "/" + date2;
-                    break;
-                case "mois_co":
-                    url = "http://localhost/sonde/api/meas/month/current";
-                    break;
-                case "mois_pa":
-                    var date = $('#val_moi_pa').val();
-                    url = "http://localhost/sonde/api/meas/month/" + date;
-                    break;
-                case "mois_in":
-                    var date1 = $('#val_moi_in1').val();
-                    var date2 = $('#val_moi_in2').val();
-                    url = "http://localhost/sonde/api/meas/months/" + date + "/" + date2;
-                    break;
-            }
-            var donnees = "<table class='table table-bordered table-striped table-condensed'>"
-                donnees += "<thead><tr><td>Date</td><td>Temp</td><td>Humid</td></tr></thead><tbody>";
-            var stat = "";
-            var temp = [];
-            var humd = [];
-            var date = [];
-            $.ajax({
-                method:"GET",
-                url: url,
-                dataType: "json"
-            }).done(function(data){
-                for (var meas in data){
-                    temp.push(parseInt(data[meas]['temp']));
-                    humd.push(parseInt(data[meas]['humid']));
-                    date.push(data[meas]['date']);
-                    donnees += "<tr><td>"+data[meas]['date']+"</td><td>"+data[meas]['temp']+" °C</td><td>"+data[meas]['humid']+" %</td></tr>";
-                }
-                donnees += "</tbody></table>";
-                stat += "<p>Température mini : "+Math.min(...temp)+"<br>";
-                stat += "Température max : "+Math.max(...temp)+"<br>";
-                var moyen = 0;
-                for (var i in temp) moyen += temp[i];
-                stat += "Température moyenne : "+(moyen/temp.length).toFixed(2)+"<br></p>";
-                stat += "<p>Humidité mini : "+Math.min(...humd)+"<br>";
-                stat += "Humidité max : "+Math.max(...humd)+"<br>";
-                var moyen = 0;
-                for (var i in humd) moyen += humd[i];
-                stat += "Humidité moyenne : "+(moyen/humd.length).toFixed(2)+"<br></p>";
-                $('.donnees').html(stat);
-                $('.donnees').append(donnees);
-
-                var chaine = "";
-                for ( var i=0; i<temp.length; i++){
-                    var newdate = date[i].replace(/-/g,"/");
-                    chaine += newdate+","+temp[i]+","+humd[i]+"\n";
-                }
-                new Dygraph(dygraph, 								// le retour à la ligne fait comprendre que le paramètre n'est pas un fichier
-                    chaine,
-                    {
-                        title: 'Température et Humidité',				// diverses options
-                        labelsDiv: document.getElementById('legend'),
-                        labels : [ "Date", "Température", "Humidité" ],
-                        labelsDivStyles: { 'textAlign': 'right' },
-                        labelsDivWidth: 150,
-                        labelsSeparateLines: true,
-                        legend: 'always',
-                        ylabel: 'Température (°C) - Humidité (%)',
-                        showRoller: false,
-                        showRangeSelector: true,
-                        height: 400
-                    });
-            });
-        });
-    });
-    </script>
 </body>
 </html>
