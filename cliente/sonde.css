@@ -8,7 +8,7 @@ body{
 }
 
 .space{
-   height: 70px;
+    height: 70px;
 }
 
 footer{
@@ -28,12 +28,10 @@ footer{
     position:relative;
     padding-bottom: 30px;
 }
-
 @font-face{
-      font-family: "digital";
-      src: url("fonts/Digital Play St.ttf");
+    font-family: "digital";
+    src: url("fonts/Digital Play St.ttf");
   }
-
 .lcd{
     font-family: digital;
     font-size: 50px;
@@ -50,13 +48,6 @@ img{
 .spe{
     width: 100%;
 }
-
-#legend{
-    float: right;
-    position: relative;
-    top:130px;
-}
-
 .affich{
     margin-bottom: 150px;
 }

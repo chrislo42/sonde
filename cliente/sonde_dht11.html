@@ -41,69 +41,66 @@
                 </div>
             </div>
         </nav>
-        <div class="container">
+        <div class="container-fluid">
             <div class="space" id="accueil"></div>
             <div class="row">
-                <div class="col-md-12 affich">
-                </div>
+                <div class="col-xs-12 col-sm-7 col-md-5 col-lg-4 affich"></div>
             </div>
             <div class="space" id="reglages"></div>
             <div class="row">
-                <div class="col-md-12">
-
-                        <div class="radio">
-                            <label><input id="date_co" value="date_co" name="choix" type="radio" checked="checked" > Date courante</label>
+                <div class="col-xs-12 col-sm-7 col-md-5 col-lg-4">
+                    <div class="radio">
+                        <label><input id="date_co" value="date_co" name="choix" type="radio" checked="checked" > Date courante</label>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 radio">
+                            <label><input id="date_pa" value="date_pa" name="choix" type="radio"> Date particulière</label>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-6 col-md-2 radio">
-                                <label><input id="date_pa" value="date_pa" name="choix" type="radio"> Date particulière</label>
-                            </div>
-                            <div class="col-xs-6 col-md-2">
-                                <input type="date" class="form-control" id="val_dat_pa" placeholder="2017-11-29">
-                            </div>
+                        <div class="col-xs-6">
+                            <input type="date" class="form-control" id="val_dat_pa" placeholder="2017-11-29">
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12 radio">
-                                <label><input id="date_in" value="date_in" name="choix" type="radio"> Interval de dates</label>
-                            </div>
-                            <div class="col-xs-6 col-md-2">
-                                <input type="date" class="form-control" id="val_dat_in1" placeholder="2017-11-29">
-                            </div>
-                            <div class="col-xs-6 col-md-2">
-                                <input type="date" class="form-control" id="val_dat_in2" placeholder="2017-11-29">
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 radio">
+                            <label><input id="date_in" value="date_in" name="choix" type="radio"> Interval de dates</label>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12 radio">
-                                <label><input id="mois_co" value="mois_co" name="choix" type="radio"> Mois courant</label>
-                            </div>
+                        <div class="col-xs-6">
+                            <input type="date" class="form-control" id="val_dat_in1" placeholder="2017-11-29">
                         </div>
-                        <div class="row">
-                            <div class="col-xs-6 col-md-2 radio">
-                                <label><input id="mois_pa" value="mois_pa" name="choix" type="radio"> Mois particulier</label>
-                            </div>
-                            <div class="col-xs-6 col-md-2">
-                                <input type="date" class="form-control" id="val_moi_pa" placeholder="2017-11-29">
-                            </div>
+                        <div class="col-xs-6">
+                            <input type="date" class="form-control" id="val_dat_in2" placeholder="2017-11-29">
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12 radio">
-                                <label><input id="mois_in" value="mois_in" name="choix" type="radio"> Interval de mois</label>
-                            </div>
-                            <div class="col-xs-6 col-md-2">
-                                <input type="date" class="form-control" id="val_moi_in1" placeholder="2017-11-29">
-                            </div>
-                            <div class="col-xs-6 col-md-2">
-                                <input type="date" class="form-control" id="val_moi_in2" placeholder="2017-11-29">
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 radio">
+                            <label><input id="mois_co" value="mois_co" name="choix" type="radio"> Mois courant</label>
                         </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-xs-10 col-xs-offset-1 col-md-2">
-                                <button id="envoi" class="btn btn-primary btn-sm spe">Envoyer</button>
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 radio">
+                            <label><input id="mois_pa" value="mois_pa" name="choix" type="radio"> Mois particulier</label>
                         </div>
-
+                        <div class="col-xs-6">
+                            <input type="month" class="form-control" id="val_moi_pa" placeholder="2017-11-29">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 radio">
+                            <label><input id="mois_in" value="mois_in" name="choix" type="radio"> Interval de mois</label>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="month" class="form-control" id="val_moi_in1" placeholder="2017-11-29">
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="month" class="form-control" id="val_moi_in2" placeholder="2017-11-29">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1">
+                            <button id="envoi" class="btn btn-primary btn-sm spe">Envoyer</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="space" id="tableau"></div>

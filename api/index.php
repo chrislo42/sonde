@@ -119,7 +119,7 @@ $app->get('/meas/days/{date1}/{date2}', function (Request $request, Response $re
 
 $app->get('/meas/month/current', function (Request $request, Response $response) {
     $req = $this->db->prepare('SELECT * FROM mesures WHERE date  > ?');
-    $date = date("Y-m")."-00 00:00:00";
+    $date = date("Y-m")."-01 00:00:00";
     $req->execute(array($date));
     $listes = array();
     while ($donnees = $req->fetch()) {
@@ -133,7 +133,7 @@ $app->get('/meas/month/current', function (Request $request, Response $response)
 
 $app->get('/meas/month/{month1}', function (Request $request, Response $response) {
     $req = $this->db->prepare('SELECT * FROM mesures WHERE date BETWEEN ? AND ?');
-    $date1 = $request->getAttribute('month1')."-00 00:00:00";
+    $date1 = $request->getAttribute('month1')."-01 00:00:00";
     $date2 = $request->getAttribute('month1')."-31 23:59:59";
     $req->execute(array($date1, $date2));
     $listes = array();
@@ -147,7 +147,7 @@ $app->get('/meas/month/{month1}', function (Request $request, Response $response
 });
 
 $app->get('/meas/months/{month1}/{month2}', function (Request $request, Response $response) {
-    $date1 = $request->getAttribute('month1')."-00 00:00:00";
+    $date1 = $request->getAttribute('month1')."-01 00:00:00";
     $date2 = $request->getAttribute('month2')."-31 23:59:59";
     $req = $this->db->prepare('SELECT * FROM mesures WHERE date BETWEEN ? AND ?');
     $req->execute(array($date1, $date2));
