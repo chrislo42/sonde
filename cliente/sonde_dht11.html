@@ -15,6 +15,7 @@
 </head>
 <body>
     <div id="main-body">
+        <!-- Barre de navigation rétractable de bootstrap -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
@@ -29,7 +30,6 @@
                     </button>
                 </div>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="mon_menu">
                     <ul class="nav navbar-nav">
                         <li><a id="acc" href="#accueil">Accueil</a></li>
@@ -42,11 +42,14 @@
             </div>
         </nav>
         <div class="container-fluid">
+            <!-- div d'espacement pour afficher sous la barre de menu -->
             <div class="space" id="accueil"></div>
+            <!-- affichage dernier relevé -->
             <div class="row">
                 <div class="col-xs-12 col-sm-7 col-md-5 col-lg-4 affich"></div>
             </div>
             <div class="space" id="reglages"></div>
+            <!-- affichage formulaire -->
             <div class="row">
                 <div class="col-xs-12 col-sm-7 col-md-5 col-lg-4">
                     <div class="radio">
@@ -104,16 +107,18 @@
                 </div>
             </div>
             <div class="space" id="tableau"></div>
+            <!-- affichage tableau -->
             <div class="row">
                 <div class="col-md-12 donnees"></div>
             </div>
             <div class="space" id="graphe"></div>
+            <!-- affichage graphique -->
             <div class="row">
                 <div id="dygraph" class="col-xs-11"></div>
             </div>
         </div>
         <footer>
-            <p>© 2017 - Design Tech Académie</p>
+            <p> 2017 - Design Tech Académie</p>
         </footer>
     </div>
 </body>

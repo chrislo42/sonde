@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Documentation API</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="doc.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"> </script>
+    <script src="doc.js"></script>
+</head>
+<body>
+<div id="main-body">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand"><img src="../cliente/lib/DTA-small.png"></a>
+                <a class="navbar-brand" href="#">Sonde DHT11</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>API Sonde_DHT11</h1><br>
+                <p class="text">Le capteur de température et d'humidité est branché sur un nodeMcu.<br>
+                Un relevé est transmis à la base de données du serveur OVH toutes les 10 minutes avec la requête POST.</p>
+                <h3>Documentation sur les requêtes disponibles de l'API</h3><br>
+                <p class="text">L'url de base est la suivante : /vps330078.ovh.net/sonde/api<br>
+                Il faut ensuite ajouter la suite en fonction de la requête choisie.</p><br/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="accordion">
+                    <h3><button class="btn spe">GET</button> /meas/day/last</h3>
+                    <div class="accord" id="day_l">
+                        <p><strong>Méthode :</strong> GET</p>
+                        <p><strong>Objet :</strong> Récupérer le dernier couple de valeurs enregistré dans la base de données</p>
+                        <p><strong>Url complete :</strong> /vps330078.ovh.net/sonde/api/meas/day/last</p>
+                        <p><strong>Paramètres :</strong> aucun</p>
+                        <p><strong>Réponse :</strong> Json {'date': 'valeur', 'temp': 'valeur', 'humd': 'valeur'}</p>
+                        <p><button class="btn spe">Essayer</button></p>
+                    </div>
+                    <h3><button class="btn spe">GET</button> /meas/day/current</h3>
+                    <div class="accord" id="day_c">
+                        <p><strong>Méthode :</strong> GET</p>
+                        <p><strong>Objet :</strong> Récupérer les  couples de valeurs du jour enregistrés dans la base de données</p>
+                        <p><strong>Url complete :</strong> /vps330078.ovh.net/sonde/api/meas/day/current</p>
+                        <p><strong>Paramètres :</strong> aucun</p>
+                        <p><strong>Réponse :</strong> Json {['date': 'valeur', 'temp': 'valeur', 'humd': 'valeur'],...}</p>
+                        <p><button class="btn spe">Essayer</button></p>
+                    </div>
+                    <h3><button class="btn spe">GET</button> /meas/day/{date}</h3>
+                    <div class="accord" id="day_p">
+                        <p><strong>Méthode :</strong> GET</p>
+                        <p><strong>Objet :</strong> Récupérer les  couples de valeurs d'un jour particulier enregistrés dans la base de données</p>
+                        <p><strong>Url complete :</strong> /vps330078.ovh.net/sonde/api/meas/day/{date}</p>
+                        <p><strong>Paramètres :</strong> date (2017-03-09)</p>
+                        <p><strong>Réponse :</strong> Json {['date': 'valeur', 'temp': 'valeur', 'humd': 'valeur'],...}</p>
+                        <p><button class="btn spe">Essayer</button></p>
+                    </div>
+                    <h3><button class="btn spe">GET</button> /meas/days/{date1}/{date2}</h3>
+                    <div class="accord" id="day_i">
+                        <p><strong>Méthode :</strong> GET</p>
+                        <p><strong>Objet :</strong> Récupérer, entre deux jours particuliers, les  couples de valeurs enregistrés dans la base de données</p>
+                        <p><strong>Url complete :</strong> /vps330078.ovh.net/sonde/api/meas/days/{date1}/{date2}</p>
+                        <p><strong>Paramètres :</strong> dates (2017-03-09)</p>
+                        <p><strong>Réponse :</strong> Json {['date': 'valeur', 'temp': 'valeur', 'humd': 'valeur'],...}</p>
+                        <p><button class="btn spe">Essayer</button></p>
+                    </div>
+                    <h3><button class="btn spe">GET</button> /meas/month/current</h3>
+                    <div class="accord" id="mon_c">
+                        <p><strong>Méthode :</strong> GET</p>
+                        <p><strong>Objet :</strong> Récupérer les  couples de valeurs du mois courant enregistrés dans la base de données</p>
+                        <p><strong>Url complete :</strong> /vps330078.ovh.net/sonde/api/meas/month/current</p>
+                        <p><strong>Paramètres :</strong> aucun</p>
+                        <p><strong>Réponse :</strong> Json {['date': 'valeur', 'temp': 'valeur', 'humd': 'valeur'],...}</p>
+                        <p><button class="btn spe">Essayer</button></p>
+                    </div>
+                    <h3><button class="btn spe">GET</button> /meas/month/{month1}</h3>
+                    <div class="accord" id="mon_p">
+                        <p><strong>Méthode :</strong> GET</p>
+                        <p><strong>Objet :</strong> Récupérer les  couples de valeurs d'un mois particulier enregistrés dans la base de données</p>
+                        <p><strong>Url complete :</strong> /vps330078.ovh.net/sonde/api/meas/month/{month1}</p>
+                        <p><strong>Paramètres :</strong> mois (2017-03)</p>
+                        <p><strong>Réponse :</strong> Json {['date': 'valeur', 'temp': 'valeur', 'humd': 'valeur'],...}</p>
+                        <p><button class="btn spe">Essayer</button></p>
+                    </div>
+                    <h3><button class="btn spe">GET</button> /meas/months/{month1}/{month2}</h3>
+                    <div class="accord" id="mon_i">
+                        <p><strong>Méthode :</strong> GET</p>
+                        <p><strong>Objet :</strong> Récupérer, entre deux mois particuliers, les couples de valeurs enregistrés dans la base de données</p>
+                        <p>Url complete : /vps330078.ovh.net/sonde/api/meas/month/{month1}/{month2}</p>
+                        <p><strong>Paramètres :</strong> mois (2017-03)</p>
+                        <p><strong>Réponse :</strong> Json {['date': 'valeur', 'temp': 'valeur', 'humd': 'valeur'],...}</p>
+                        <p><button class="btn spe">Essayer</button></p>
+                    </div>
+                    <h3><button class="btn spe">POST</button> /meas/new</h3>
+                    <div class="accord">
+                        <p><strong>Méthode :</strong> POST</p>
+                        <p><strong>Objet :</strong> Enregistrer le  couple de valeurs mesuré par le nodeMCU dans la base de données</p>
+                        <p><strong>Url complete :</strong> /vps330078.ovh.net/sonde/api/meas/new</p>
+                        <p><strong>Paramètres :</strong> json {'value1': 'valeur', 'value2': 'valeur'}</p>
+                        <p><strong>Réponse :</strong> format html : "New measurement !!!=> température : 'valeur'; humidité : 'valeur'"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p> 2017 - Design Tech Académie</p>
+    </footer>
+</div>
+</body>
+</html>

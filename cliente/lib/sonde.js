@@ -3,40 +3,36 @@
  */
 $(document).ready(function(){
     var base = "http://localhost/sonde/api";
+
+    /* appel ajax pour le dernier relevé */
     $.ajax({
         method:"GET",
         url:base+"/meas/day/last",
         dataType: "json"
     }).done(function(data){
-        $('.affich').html("<p>Dernière Température reçue :</p>");
-        var affich = "<p>Date : "+data['date']+"</p><p>Température : </p><p class='lcd'>"+data['temp']+" °C</p>"
+        var affich = "<p>Dernière Température reçue :</p>";
+        affich += "<p>Date : "+data['date']+"</p><p>Température : </p><p class='lcd'>"+data['temp']+" °C</p>"
         affich += "<p>Humidité : </p><p class='lcd'>"+data['humid']+" %</p>";
-        $('.affich').append(affich);
+        $('.affich').html(affich);
     }).fail(function(data){
-        $('.affich').html("<p>Pas de réponse reçue du serveur !</p>");
+        $('.affich').html("<p>Pas de réponse reçue du serveur pour l'url : "+base+"/meas/day/last !</p>");
     });
-    //$("#reglages").click(function(event){
-    //    event.preventDefault();
-    //    linkLocation = this.href;
-    //    $(".reglages").css('display', 'block');
-    //    $(".accueil").css('display', 'none');
-    //});
 
+    /* pour replier le menu déroulé après un click */
     $('#mon_menu a').click(function() {
         var navbar_toggle = $('.navbar-toggle');
         if (navbar_toggle.is(':visible')) {
             navbar_toggle.trigger('click');
         }
-        //var list = $('li').parent(this);
-        //$(list).attr('class', 'active');
-        //alert ($(this).attr('id'));
     });
 
+    /* fonction de traitement du formulaire*/
     $("#envoi").click(function(){
         $('.donnees').empty();
         $('#dygraph').empty();
-        var choix = $('input[type=radio][name=choix]:checked').attr('value');
         var url ="";
+        var choix = $('input[type=radio][name=choix]:checked').attr('value');
+        /* construction de l'url en fonction du bouton radio sélectionné */
         switch (choix) {
             case "date_co":
                 url = base+"/meas/day/current";
@@ -69,19 +65,24 @@ $(document).ready(function(){
         var temp = [];
         var humd = [];
         var date = [];
+        /* appel ajax pour les relevés de la période choisie */
         $.ajax({
             method:"GET",
             url: url,
             dataType: "json"
         }).done(function(data){
+            /* si l'appel retourne des données */
             if (data.length != 0) {
                 for (var meas in data) {
+                    /* remplissage des tableaux pour le graphique*/
                     temp.push(parseInt(data[meas]['temp']));
                     humd.push(parseInt(data[meas]['humid']));
                     date.push(data[meas]['date']);
+                    /* construction du tableau d'affichage */
                     donnees += "<tr><td>" + data[meas]['date'] + "</td><td>" + data[meas]['temp'] + " °C</td><td>" + data[meas]['humid'] + " %</td></tr>";
                 }
                 donnees += "</tbody></table>";
+                /* calcul et préparation affichage des extras */
                 stat += "<p>Température mini : " + Math.min(...temp) + "<br>";
                 stat += "Température max : " + Math.max(...temp) + "<br>";
                 var moyen = 0;
@@ -95,11 +96,13 @@ $(document).ready(function(){
                 $('.donnees').html(stat);
                 $('.donnees').append(donnees);
 
+                /* construction des données à passer au graphique */
                 var chaine = "";
                 for (var i = 0; i < temp.length; i++) {
                     var newdate = date[i].replace(/-/g, "/");
                     chaine += newdate + "," + temp[i] + "," + humd[i] + "\n";
                 }
+                /* construction du graphique */
                 new Dygraph(dygraph, 								// le retour à la ligne fait comprendre que le paramètre n'est pas un fichier
                     chaine,
                     {
@@ -119,7 +122,7 @@ $(document).ready(function(){
                 $('.donnees').html("<p>Pas de données à afficher !</p>");
             }
         }).fail(function(data){
-            $('.donnees').html("<p>Pas de réponse reçue du serveur !</p>");
+            $('.donnees').html("<p>Pas de réponse reçue du serveur pour l'url : "+url+" !</p>");
         });
     });
 });
