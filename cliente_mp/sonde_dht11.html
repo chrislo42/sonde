@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sonde DHT11</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="sonde.css">
+    <script src = "https://code.jquery.com/jquery-1.11.2.min.js"> </script>
+    <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"> </script>
+    <script src="lib/dygraph-combined.js"></script>
+    <script src="lib/sonde.js"></script>
+</head>
+<body>
+    <div id="main-body">
+        <!-- Barre de navigation rétractable de bootstrap -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="#" class="navbar-brand"><img src="lib/DTA-small.png"></a>
+                    <a class="navbar-brand" href="#">Sonde DHT11</a>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#mon_menu" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+
+                <div class="collapse navbar-collapse" id="mon_menu">
+                    <ul class="nav navbar-nav">
+                        <li><a id="acc" href="#">Accueil</a></li>
+                        <li><a id="reg" href="#">Réglages</a></li>
+                        <li><a id="tab" href="#">Tableau</a></li>
+                        <li><a id="gra" href="#">Graphique</a></li>
+                        <li><a id="con" href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <!-- affichage dernier relevé -->
+            <div class="row">
+                <div class="col-xs-12 col-sm-7 col-md-5 col-lg-4 accueil contenu"></div>
+            </div>
+            <!-- affichage formulaire -->
+            <div class="row">
+                <div class="col-xs-12 col-sm-7 col-md-5 col-lg-4 formulaire contenu"></div>
+            </div>
+            <!-- affichage tableau -->
+            <div class="row">
+                <div class="col-md-12 tableau contenu"></div>
+            </div>
+            <!-- affichage graphique -->
+            <div class="row">
+                <div id="dygraph" class="col-xs-11 graphique contenu"></div>
+            </div>
+        </div>
+        <footer>
+            <p> 2017 - Design Tech Académie</p>
+        </footer>
+    </div>
+</body>
+</html>
