@@ -35,6 +35,7 @@ $(document).ready(function(){
         });
     }
 
+    /* fonction construction et affichage de la page tableau */
     function tabl() {
         if (donnees.length != 0) {
             var stat = "";
@@ -59,13 +60,13 @@ $(document).ready(function(){
             var moyen = 0;
             for (var i in humd) moyen += humd[i];
             stat += "Humidité moyenne : " + (moyen / humd.length).toFixed(2) + "<br></p>";
-            $('.tableau').html(stat);
-            $('.tableau').append(tableau);
+            $('.tableau').append(stat+tableau);
         } else {
             $('.tableau').html("<p>Pas de données à afficher !</p>");
         }
     }
 
+    /* fonction construction et affichage de la page graphique */
     function graphic() {
         if (donnees.length != 0) {
             for (var meas in donnees) {
@@ -110,8 +111,7 @@ $(document).ready(function(){
             url:"formulaire.html",
             dataType: "html"
         }).done(function(data){
-            var formulaire = data;
-            $('.formulaire').html(formulaire);
+            $('.formulaire').html(data);
 
             /* fonction de traitement du formulaire*/
             $("#envoi").click(function(){
@@ -146,6 +146,7 @@ $(document).ready(function(){
                         break;
                 }
                 $('.formulaire').empty();
+
                 /* appel ajax pour les relevés de la période choisie */
                 $.ajax({
                     method:"GET",
@@ -155,7 +156,7 @@ $(document).ready(function(){
                     /* si l'appel retourne des données */
                     if (data.length != 0) {
                         donnees = data;
-                        graphic();
+                        graphic(); // appel de la page graphique
                     } else {
                         $('.formulaire').html("<p>Pas de données à afficher !</p>");
                     }
@@ -168,9 +169,22 @@ $(document).ready(function(){
         });
     }
 
+    /* fonction d'affichage de la page contact */
+    function contact() {
+        $.ajax({
+            method: "GET",
+            url: "contact.html",
+            dataType: "html"
+        }).done(function (data) {
+            $('.contact').html(data);
+        });
+    }
+
+    /* traitement de la sélection du menu */
     $('li a').click(function () {
         var id = $(this).attr('id');
-        $('.contenu').empty();
+        $('.contenu').empty(); // suppression des contenus de toutes les pages
+        $('#dygraph').removeAttr("style"); // pour supprimer l'espace blanc dû au graphique sur les autres pages
         var contenu ="";
         var affichage = "";
         switch (id) {
@@ -186,7 +200,12 @@ $(document).ready(function(){
             case "gra":
                 graphic();
                 break;
+            case "con":
+                contact();
+                break;
+
         }
     });
+    /* affichage de la page d'accueil */
     acc();
 });
